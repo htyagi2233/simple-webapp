@@ -33,7 +33,7 @@ pipeline{
             steps{
                 sh "echo $dockerhub_cred_PSW | docker login -u $dockerhub_cred_USR --password-stdin"
                 sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"   //renameing the tag..
+                sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"   //renameing the tag
                 sh "docker push ${DOCKER_IMAGE}:latest"
             }
         }
