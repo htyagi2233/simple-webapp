@@ -39,6 +39,13 @@ pipeline{
             }
         }
 		
+        // stage('Copy Kubeconfig') {
+		//     steps {
+		//         withCredentials([file(credentialsId: 'kubeconfig-onprem', variable: 'KUBECONFIG_FILE')]) {
+		//             sh 'cp $KUBECONFIG_FILE kubeconfig'
+		//         }
+		//     }
+        // }
 
         stage('K8s Deploy'){
             steps{
