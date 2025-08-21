@@ -41,6 +41,7 @@ pipeline{
             steps{
                 withCredentials([file(credentialsId: 'k8s-server-key', variable: 'KUBECONFIG_FILE_PATH')]) {
                     sh 'cp "$KUBECONFIG_FILE_PATH" "$KUBECONFIG"'
+                    sh 'echo $WORKSPACE'
                 }
             }
         }
