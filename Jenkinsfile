@@ -6,13 +6,12 @@ pipeline{
     tools {
         maven 'Maven-3.8.7'
     }
-
     environment{
         cred = credentials('k8s-server-key')
         dockerhub_cred = credentials('dockerhub-creds')
         DOCKER_IMAGE = "htyagi2233/simple-webapp"
         DOCKER_TAG = "$BUILD_NUMBER"
-// 		 KUBECONFIG = "${WORKSPACE}/kubeconfig" //optional to upload kubeconfig file
+        KUBECONFIG = "${WORKSPACE}/kubeconfig" //optional to upload kubeconfig file
     }
     stages{
         stage('Checkout Stage'){
@@ -38,7 +37,13 @@ pipeline{
                 sh "docker push ${DOCKER_IMAGE}:latest"
             }
         }
-		
+        stage('Copy kubeconfig'){
+            steps{
+                withCredentials([file(credentialsId: 'k8s-server-key', variable: 'KUBECONFIG_FILE_PATH')]) {
+                    sh 'cp "$KUBECONFIG_FILE_PATH" "$KUBECONFIG"'
+                }
+            }
+        }
         stage('K8s Deploy'){
             steps{
                 sh 'kubectl apply -f deployment.yaml'
@@ -46,7 +51,7 @@ pipeline{
             }
         }
     }
-    post {
+    post{
       always {
         echo 'Pipeline completed !'
       }
@@ -56,6 +61,5 @@ pipeline{
       failure {
         echo 'Pipeline failed!'
       }
-}
-
+    }
 }
