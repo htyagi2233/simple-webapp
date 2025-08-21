@@ -12,7 +12,7 @@ pipeline{
         dockerhub_cred = credentials('dockerhub-creds')
         DOCKER_IMAGE = "htyagi2233/simple-webapp"
         DOCKER_TAG = "$BUILD_NUMBER"
-		//  KUBECONFIG = "${WORKSPACE}/kubeconfig" //optional to upload kubeconfig file..
+// 		 KUBECONFIG = "${WORKSPACE}/kubeconfig" //optional to upload kubeconfig file
     }
     stages{
         stage('Checkout Stage'){
@@ -39,14 +39,6 @@ pipeline{
             }
         }
 		
-        // stage('Copy Kubeconfig') {
-		//     steps {
-		//         withCredentials([file(credentialsId: 'kubeconfig-onprem', variable: 'KUBECONFIG_FILE')]) {
-		//             sh 'cp $KUBECONFIG_FILE kubeconfig'
-		//         }
-		//     }
-        // }
-
         stage('K8s Deploy'){
             steps{
                 sh 'kubectl apply -f deployment.yaml'
