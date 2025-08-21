@@ -11,7 +11,7 @@ pipeline{
         dockerhub_cred = credentials('dockerhub-creds')
         DOCKER_IMAGE = "htyagi2233/simple-webapp"
         DOCKER_TAG = "$BUILD_NUMBER"
-        KUBECONFIG = "${WORKSPACE}/kubeconfig" //optional to upload kubeconfig file ..
+        KUBECONFIG = "${WORKSPACE}/kubeconfig"
     }
     stages{
         stage('Checkout Stage'){
