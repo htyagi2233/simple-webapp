@@ -47,8 +47,8 @@ spec:
     app: simple-webapp
   ports:
   - port: 80
-    targetPort: 80
-    nodePort: 31180
+    targetPort: 8080
+    nodePort: 30080
 
 
 
